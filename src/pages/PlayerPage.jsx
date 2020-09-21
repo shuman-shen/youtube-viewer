@@ -1,28 +1,15 @@
 /** @jsx jsx */
 import { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { jsx, Embed, Heading, Link, Text, Box, Button } from "theme-ui";
 
-const PlayerPage = ({ match: { params }, location: { state } }) => {
+const PlayerPage = ({ match: { params }, location }) => {
   const { videoId } = params;
-
-  const {
-    title,
-    description,
-    channelId,
-    channelTitle,
-    publishedAt,
-    thumbnail,
-  } = state;
-
-  console.log(state);
-
   const [fav, setFav] = useState(false);
-  const [favList, setFavList] = useState([]);
 
   useEffect(() => {
     if (window.localStorage.getItem("ytbFav")) {
       const result = JSON.parse(window.localStorage.getItem("ytbFav"));
-      //setFavList(resulte)
       const found = result.find((item) => item.videoId === videoId);
       if (found) {
         setFav(true);
@@ -34,6 +21,14 @@ const PlayerPage = ({ match: { params }, location: { state } }) => {
   }, []);
 
   const handleClick = () => {
+    const {
+      title,
+      description,
+      channelId,
+      channelTitle,
+      publishedAt,
+      thumbnail,
+    } = location.state;
     const result = window.localStorage.getItem("ytbFav");
     let toArray = [];
     let found = false;
@@ -68,23 +63,35 @@ const PlayerPage = ({ match: { params }, location: { state } }) => {
 
   const EMBED_BASE_LINK = "https://www.youtube.com/embed/";
   const CHANNEL_BASE_LINK = "https://www.youtube.com/channel/";
-  //console.log(prayerProps);
-  return (
-    <div>
-      <Embed src={`${EMBED_BASE_LINK}${videoId}`} />
-      <Box>
-        <Heading as="h3">{title}</Heading>
-        <Text>{description}</Text>
-        <Text>{publishedAt}</Text>
-        <Link href={`${CHANNEL_BASE_LINK}${channelId}`} target="_blank">
-          {channelTitle}
-        </Link>
-        <Button onClick={handleClick}>
-          {fav ? `Remove from Favourite` : "Add to Favourite"}
-        </Button>
-      </Box>
-    </div>
-  );
+
+  if (location["state"] !== undefined) {
+    const {
+      title,
+      description,
+      channelId,
+      channelTitle,
+      publishedAt,
+      thumbnail,
+    } = location.state;
+    return (
+      <div>
+        <Embed src={`${EMBED_BASE_LINK}${videoId}`} />
+        <Box>
+          <Heading as="h3">{title}</Heading>
+          <Text>{description}</Text>
+          <Text>{publishedAt}</Text>
+          <Link href={`${CHANNEL_BASE_LINK}${channelId}`} target="_blank">
+            {channelTitle}
+          </Link>
+          <Button onClick={handleClick}>
+            {fav ? `Remove from Favourite` : "Add to Favourite"}
+          </Button>
+        </Box>
+      </div>
+    );
+  } else {
+    return <Redirect to="/notfound" />;
+  }
 };
 
 export default PlayerPage;

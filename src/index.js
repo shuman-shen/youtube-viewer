@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "theme-ui";
 //import './index.css';
 import App from "./App";
+import ErrorBoundary from "./components/ErrorBoundary";
 import theme from "./theme";
 
 ReactDOM.render(
