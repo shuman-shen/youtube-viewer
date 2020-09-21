@@ -1,6 +1,6 @@
 import apiClient from "./client";
 
-const KEY = `ENTER YOUR KEY`;
+const KEY = `AIzaSyADoJWJRl4amb1ij590DW_STPx-TiXu5wg`;
 const MAX_RESULTS = 10;
 const searchVideo = (query) =>
   apiClient.get("/search", {

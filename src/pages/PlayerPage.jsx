@@ -2,10 +2,8 @@
 import { useState, useEffect } from "react";
 import { jsx, Embed, Heading, Link, Text, Box, Button } from "theme-ui";
 
-const PlayerPage = ({ match, location }) => {
-  const {
-    params: { videoId },
-  } = match;
+const PlayerPage = ({ match: { params }, location: { state } }) => {
+  const { videoId } = params;
 
   const {
     title,
@@ -13,7 +11,10 @@ const PlayerPage = ({ match, location }) => {
     channelId,
     channelTitle,
     publishedAt,
-  } = location.state;
+    thumbnail,
+  } = state;
+
+  console.log(state);
 
   const [fav, setFav] = useState(false);
   const [favList, setFavList] = useState([]);
@@ -22,29 +23,45 @@ const PlayerPage = ({ match, location }) => {
     if (window.localStorage.getItem("ytbFav")) {
       const result = JSON.parse(window.localStorage.getItem("ytbFav"));
       //setFavList(resulte)
-      if (result[videoId]) {
+      const found = result.find((item) => item.videoId === videoId);
+      if (found) {
         setFav(true);
       }
     } else {
-      const initialObj = {};
-      window.localStorage.setItem("ytbFav", JSON.stringify(initialObj));
+      const initialArray = [];
+      window.localStorage.setItem("ytbFav", JSON.stringify(initialArray));
     }
   }, []);
 
   const handleClick = () => {
     const result = window.localStorage.getItem("ytbFav");
-    let toObj = {};
+    let toArray = [];
+    let found = false;
     if (result) {
-      toObj = JSON.parse(result);
+      toArray = JSON.parse(result);
+      found = toArray.find((item) => item.videoId === videoId);
     }
-    if (!fav) {
-      toObj[videoId] = new Date().toISOString();
-      const objStr = JSON.stringify(toObj);
-      window.localStorage.setItem("ytbFav", objStr);
+
+    if (!fav && !found) {
+      toArray.push({
+        videoId,
+        title,
+        description,
+        channelId,
+        channelTitle,
+        publishedAt,
+        thumbnail,
+      });
+      const arrayStr = JSON.stringify(toArray);
+      window.localStorage.setItem("ytbFav", arrayStr);
       setFav(true);
+    } else if (!fav && found) {
+      setFav(true);
+    } else if (fav && !found) {
+      const newArray = toArray.filter((item) => item.videoId !== videoId);
+      window.localStorage.setItem("ytbFav", JSON.stringify(newArray));
+      setFav(false);
     } else {
-      delete toObj[videoId];
-      window.localStorage.setItem("ytbFav", JSON.stringify(toObj));
       setFav(false);
     }
   };
