@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { useState, useEffect } from "react";
-import { Link, Route } from "react-router-dom";
-import { htmlUnescape, htmlEscape } from "escape-goat";
-import { jsx, Button, Input, Flex } from "theme-ui";
+
+import { htmlEscape } from "escape-goat";
+import { jsx, Button, Input, Flex, Text, Message } from "theme-ui";
 import searchApi from "../api/search";
-import ResultPage from "./ResultPage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SearchPage = ({ history, match }) => {
   const [query, setQuery] = useState("");
@@ -20,7 +21,7 @@ const SearchPage = ({ history, match }) => {
 
   const getSearchResult = async (pageChange) => {
     if (!query) {
-      setError("Please enter some keywords to start search.");
+      toast("Please enter some keywords to start search.");
       return;
     }
     let searchData = {
@@ -79,14 +80,43 @@ const SearchPage = ({ history, match }) => {
 
   return (
     <div>
-      <Flex as="form" onSubmit={handleSubmit}>
+      <Flex
+        as="form"
+        onSubmit={handleSubmit}
+        sx={{
+          mx: "3rem",
+          height: "80vh",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <Input
           name="searchField"
           id="searchField"
+          placeholder="Type to search..."
           onChange={(e) => setQuery(e.target.value)}
         />
-        <Button>Submit</Button>
+        <Flex>
+          <Button
+            sx={{ width: "30vw", my: "1.5rem", mx: "1rem" }}
+            type="reset"
+            onClick={(e) => {
+              setQuery("");
+            }}
+          >
+            Reset
+          </Button>
+          <Button
+            sx={{ width: "30vw", my: "1.5rem", mx: "1rem" }}
+            type="submit"
+          >
+            Search
+          </Button>
+        </Flex>
+        <Text>Youtube search starts here.</Text>
       </Flex>
+      <ToastContainer />
     </div>
   );
 };

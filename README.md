@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+<a href="https://www.vectorportal.com/StockVectors/">Retro TV set vector graphics 2</a> by <a href=" https://www.vectorportal.com" rel="nofollow">Vectorportal.com</a> is licensed under <a class="external text" href=" https://creativecommons.org/licenses/by/3.0/us/" rel="nofollow">CC BY</a>
+
 ## Available Scripts
 
 In the project directory, you can run:
