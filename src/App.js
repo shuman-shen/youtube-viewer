@@ -1,16 +1,23 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Header from "./components/Header";
-import SearchPage from "./pages/SearchPage";
+import NotFound from "./components/NotFound";
+import FavPage from "./pages/FavPage";
+import HomePage from "./pages/HomePage";
 import PlayerPage from "./pages/PlayerPage";
+import ResultPage from "./pages/ResultPage";
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Switch>
-        <Route exact path="/" component={SearchPage} />
+        <Route path="/search" component={ResultPage} />
         <Route path="/video/:videoId" component={PlayerPage} />
+        <Route path="/fav" component={FavPage} />
+        <Route path="/notfound" component={NotFound} />
+        <Route path="/" component={HomePage} />
+        <Redirect to="/notfound" />
       </Switch>
     </div>
   );
