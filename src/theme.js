@@ -1,4 +1,6 @@
 export default {
+  breakpoints: ["480px", "768px", "1200px"],
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
   colors: {
     text: "hsl(210, 50%, 96%)",
     background: "hsl(230, 25%, 18%)",
@@ -74,6 +76,7 @@ export default {
     },
     a: {
       color: "primary",
+      textDecoration: "none",
       "&:hover": {
         color: "secondary",
       },
@@ -146,6 +149,16 @@ export default {
     },
     ".selector,.attr-name,.string,.char,.bultin,.inserted": {
       color: "secondary",
+    },
+  },
+  links: {
+    nav: {
+      a: {
+        "&:hover": {
+          backgroundColor: "highlight",
+          color: "red",
+        },
+      },
     },
   },
 };

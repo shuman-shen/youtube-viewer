@@ -1,8 +1,9 @@
 /** @jsx jsx */
 
 import { useState, useEffect } from "react";
+import ResultList from "../components/ResultList";
 
-const { jsx, Card, Image, Text, Heading } = require("theme-ui");
+const { jsx, Text, Box } = require("theme-ui");
 
 const FavPage = () => {
   const [favList, setFavList] = useState([]);
@@ -13,27 +14,22 @@ const FavPage = () => {
       setFavList(result);
     }
   }, []);
-  return (
-    <div>
-      {favList.map(
-        ({
-          title,
-          description,
-          channelId,
-          channelTitle,
-          publishedAt,
-          thumbnail,
-        }) => (
-          <Card>
-            <Image src={thumbnail} />
-            <Heading as="h4">{title}</Heading>
-            <Text>{description}</Text>
-            <Text>{channelTitle}</Text>
-            <Text>{publishedAt}</Text>
-          </Card>
-        )
-      )}
-    </div>
+
+  return favList.length > 0 ? (
+    <Box sx={{ textAlign: "center" }}>
+      <ResultList allResults={favList} />
+    </Box>
+  ) : (
+    <Box
+      sx={{
+        width: ["100vw", "80vw", "70vw", "40vw"],
+        fontSize: "1.5rem",
+        p: ["1.5rem", "1.5rem", "2rem", "4rem"],
+        textAlign: "center",
+      }}
+    >
+      <Text>No favourite video found.</Text>
+    </Box>
   );
 };
 

@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import { jsx, Embed, Heading, Link, Text, Box, Button } from "theme-ui";
+import { jsx, Flex } from "theme-ui";
+import Player from "../components/Player";
 
 const PlayerPage = ({ match: { params }, location }) => {
   const { videoId } = params;
@@ -10,7 +11,7 @@ const PlayerPage = ({ match: { params }, location }) => {
   useEffect(() => {
     if (window.localStorage.getItem("ytbFav")) {
       const result = JSON.parse(window.localStorage.getItem("ytbFav"));
-      const found = result.find((item) => item.videoId === videoId);
+      const found = result.find((item) => item.id.videoId === videoId);
       if (found) {
         setFav(true);
       }
@@ -18,42 +19,30 @@ const PlayerPage = ({ match: { params }, location }) => {
       const initialArray = [];
       window.localStorage.setItem("ytbFav", JSON.stringify(initialArray));
     }
-  }, []);
+  }, [videoId]);
 
   const handleClick = () => {
     const {
-      title,
-      description,
-      channelId,
-      channelTitle,
-      publishedAt,
-      thumbnail,
-    } = location.state;
+      state: { item },
+    } = location;
+
     const result = window.localStorage.getItem("ytbFav");
     let toArray = [];
     let found = false;
     if (result) {
       toArray = JSON.parse(result);
-      found = toArray.find((item) => item.videoId === videoId);
+      found = toArray.find((item) => item.id.videoId === videoId);
     }
 
     if (!fav && !found) {
-      toArray.push({
-        videoId,
-        title,
-        description,
-        channelId,
-        channelTitle,
-        publishedAt,
-        thumbnail,
-      });
+      toArray.push(item);
       const arrayStr = JSON.stringify(toArray);
       window.localStorage.setItem("ytbFav", arrayStr);
       setFav(true);
     } else if (!fav && found) {
       setFav(true);
-    } else if (fav && !found) {
-      const newArray = toArray.filter((item) => item.videoId !== videoId);
+    } else if (fav && found) {
+      const newArray = toArray.filter((item) => item.id.videoId !== videoId);
       window.localStorage.setItem("ytbFav", JSON.stringify(newArray));
       setFav(false);
     } else {
@@ -61,33 +50,11 @@ const PlayerPage = ({ match: { params }, location }) => {
     }
   };
 
-  const EMBED_BASE_LINK = "https://www.youtube.com/embed/";
-  const CHANNEL_BASE_LINK = "https://www.youtube.com/channel/";
-
   if (location["state"] !== undefined) {
-    const {
-      title,
-      description,
-      channelId,
-      channelTitle,
-      publishedAt,
-      thumbnail,
-    } = location.state;
     return (
-      <div>
-        <Embed src={`${EMBED_BASE_LINK}${videoId}`} />
-        <Box>
-          <Heading as="h3">{title}</Heading>
-          <Text>{description}</Text>
-          <Text>{publishedAt}</Text>
-          <Link href={`${CHANNEL_BASE_LINK}${channelId}`} target="_blank">
-            {channelTitle}
-          </Link>
-          <Button onClick={handleClick}>
-            {fav ? `Remove from Favourite` : "Add to Favourite"}
-          </Button>
-        </Box>
-      </div>
+      <Flex sx={{ width: "100vw", justifyContent: "center" }}>
+        <Player item={location.state.item} fav={fav} onClick={handleClick} />
+      </Flex>
     );
   } else {
     return <Redirect to="/notfound" />;
