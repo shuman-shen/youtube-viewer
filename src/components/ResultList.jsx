@@ -1,15 +1,10 @@
 /** @jsx jsx */
-
 import { jsx, Grid } from "theme-ui";
 import ResultItem from "./ResultItem";
 
 const ResultList = ({ allResults }) => {
   return (
-    <Grid
-      columns={["1fr", "1fr", "1fr 1fr", "1fr 1fr 1fr"]}
-      gap="1.5rem"
-      sx={gridStyle}
-    >
+    <Grid columns={gridProps.columns} gap={gridProps.gap} sx={gridStyle}>
       {allResults.map((item) => (
         <ResultItem
           key={`${item.id.videoId}_${Math.floor(Math.random() * 1000000)}`}
@@ -20,8 +15,13 @@ const ResultList = ({ allResults }) => {
   );
 };
 
-const gridStyle = {
-  px: ["1rem", "2rem", "4rem", "4rem"],
-  marginTop: ["1rem", "1.5rem", "3rem", "4rem"],
+const gridProps = {
+  columns: ["1fr", "1fr", "1fr 1fr", "1fr 1fr 1fr"],
+  gap: "1.5rem",
 };
+const gridStyle = {
+  marginTop: ["1rem", "1.5rem", "3rem", "4rem"],
+  px: ["1rem", "2rem", "4rem", "4rem"],
+};
+
 export default ResultList;

@@ -52,7 +52,7 @@ const PlayerPage = ({ match: { params }, location }) => {
 
   if (location["state"] !== undefined) {
     return (
-      <Flex sx={{ width: "100vw", justifyContent: "center" }}>
+      <Flex sx={containerStyle}>
         <Player item={location.state.item} fav={fav} onClick={handleClick} />
       </Flex>
     );
@@ -60,5 +60,7 @@ const PlayerPage = ({ match: { params }, location }) => {
     return <Redirect to="/notfound" />;
   }
 };
+
+const containerStyle = { width: "100vw", justifyContent: "center" };
 
 export default PlayerPage;

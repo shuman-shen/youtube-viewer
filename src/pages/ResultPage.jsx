@@ -2,7 +2,6 @@
 import { jsx, Box, Text } from "theme-ui";
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-
 import searchApi from "../api/search";
 import EndlessList from "../components/EndlessList";
 import { toast, ToastContainer } from "react-toastify";
@@ -50,8 +49,8 @@ const ResultPage = ({ location }) => {
       ) : (
         <Box>
           <Text
-            sx={{ textAlign: "center", mx: ["1rem", "2rem", "4rem", "4rem"] }}
-          >{`Results Found: ${location.state.totalResults}...`}</Text>
+            sx={textStyle}
+          >{`Results Found: ${location.state.totalResults}`}</Text>
           <EndlessList
             allResults={allResults}
             fetchNextPage={fetchNextPage}
@@ -68,5 +67,6 @@ const ResultPage = ({ location }) => {
     </div>
   );
 };
+const textStyle = { textAlign: "center", mx: ["1rem", "2rem", "4rem", "4rem"] };
 
 export default ResultPage;
