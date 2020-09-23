@@ -1,6 +1,5 @@
 /** @jsx jsx */
-
-import { jsx, Flex, Input, Button, Text } from "theme-ui";
+import { jsx, Button, Flex, Input, Text } from "theme-ui";
 
 const SearchBar = ({ handleSubmit, handleTextChange, handleReset }) => {
   return (
@@ -30,11 +29,11 @@ const SearchBar = ({ handleSubmit, handleTextChange, handleReset }) => {
 };
 
 const containerStyle = {
-  mx: "1.5rem",
-  height: "70vh",
-  flexDirection: "column",
   alignItems: "center",
+  flexDirection: "column",
+  height: "70vh",
   justifyContent: "center",
+  mx: "1.5rem",
 };
 
 const searchBarStyle = {
@@ -42,9 +41,9 @@ const searchBarStyle = {
 };
 
 const searchButtonStyle = {
-  width: ["35vw", "35vw", "25vw", "20vw"],
-  my: "1.5rem",
   mx: "1rem",
+  my: "1.5rem",
+  width: ["35vw", "35vw", "25vw", "18vw"],
 };
 
 export default SearchBar;

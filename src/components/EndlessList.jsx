@@ -9,12 +9,14 @@ const EndlessList = ({ allResults, fetchNextPage, hasMore = true }) => {
       dataLength={allResults.length}
       next={fetchNextPage}
       hasMore={hasMore}
-      loader={<Spinner sx={{ width: "100vw", mx: "auto" }} />}
+      loader={<Spinner sx={spinnerStyle} />}
       endMessage={<Text sx={{ textAlign: "center" }}>End of All Results.</Text>}
     >
       <ResultList allResults={allResults} />
     </InfiniteScroll>
   );
 };
+
+const spinnerStyle = { mx: "auto", width: "100vw" };
 
 export default EndlessList;

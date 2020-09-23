@@ -1,6 +1,5 @@
 /** @jsx jsx */
-
-import { jsx, Box, Embed, Heading, Text, Button, Flex } from "theme-ui";
+import { jsx, Box, Button, Embed, Flex, Heading, Text } from "theme-ui";
 import { htmlUnescape } from "escape-goat";
 
 const Player = ({ item, fav, onClick }) => {
@@ -14,13 +13,13 @@ const Player = ({ item, fav, onClick }) => {
 
   const EMBED_BASE_LINK = "https://www.youtube.com/embed/";
   return (
-    <Box sx={{ width: ["90%", "90%", "75%", "60%"] }}>
+    <Box sx={boxStyle}>
       <Embed src={`${EMBED_BASE_LINK}${item.id.videoId}`} />
       <Box>
-        <Heading sx={{ lineHeight: "2rem", my: "1rem" }} as="h3">
+        <Heading sx={headingStyle} as="h3">
           {htmlUnescape(title)}
         </Heading>
-        <Flex sx={{ justifyContent: "space-between", marginBottom: "1rem" }}>
+        <Flex sx={descStyle}>
           <Text>{publishedAtLocal}</Text>
           <Button sx={favBtnStyle} onClick={onClick}>
             {fav ? `Remove \u2764` : "Add \u2764"}
@@ -33,8 +32,9 @@ const Player = ({ item, fav, onClick }) => {
   );
 };
 
-const favBtnStyle = {
-  mx: "1em",
-};
+const boxStyle = { width: ["90%", "90%", "75%", "60%"] };
+const descStyle = { justifyContent: "space-between", marginBottom: "1rem" };
+const favBtnStyle = { mx: "1em" };
+const headingStyle = { lineHeight: "2rem", my: "1rem" };
 
 export default Player;

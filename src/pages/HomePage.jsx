@@ -1,11 +1,9 @@
 /** @jsx jsx */
-import { useState, useEffect } from "react";
-
-import { htmlEscape } from "escape-goat";
 import { jsx } from "theme-ui";
-import searchApi from "../api/search";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { htmlEscape } from "escape-goat";
+import searchApi from "../api/search";
 import SearchBar from "../components/SearchBar";
 
 const SearchPage = ({ history, match }) => {
@@ -69,4 +67,5 @@ const SearchPage = ({ history, match }) => {
     </div>
   );
 };
+
 export default SearchPage;

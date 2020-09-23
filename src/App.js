@@ -1,11 +1,12 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Header from "./components/Header";
-import NotFound from "./components/NotFound";
 import FavPage from "./pages/FavPage";
+import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
+import NotFound from "./components/NotFound";
 import PlayerPage from "./pages/PlayerPage";
 import ResultPage from "./pages/ResultPage";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
