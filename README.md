@@ -1,8 +1,7 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple react.js app to demonstrate search on youtube APIs.
 
-## To start
+- Theme-UI theme+components
+- Some basic media queries applied for responsive design.
+- Youtube Data API v3
 
-```
-> yarn install
-> yarn start
-```
+![screenshot](https://res.cloudinary.com/dio6ne2dr/image/upload/v1603696539/Screen_Shot_2020-10-26_at_6.14.56_pm_wslpih.png)
